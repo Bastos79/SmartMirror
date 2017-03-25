@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">SmartMirror</string>
+
+    <string name="header_general">Général</string>
+    <string name="header_general_summary">Modifier vos préférences</string>
+    <string name="header_weather">Météo</string>
+    <string name="header_weather_summary">Choisir la météo de votre ville</string>
+    <string name="header_map">Carte</string>
+    <string name="header_map_summary">Afficher la carte de votre ville</string>
+    <string name="header_transport">Transport</string>
+    <string name="header_transport_summary">Définir les transports récurrents</string>
+    <string name="header_news">Actualités</string>
+    <string name="header_news_summary">Afficher votre flux d\'actualités</string>
+    <string name="header_comics">Comics</string>
+    <string name="header_comics_summary">Afficher une image quotidienne</string>
+
+    <string name="preference_geoloc">Géolocalisation</string>
+    <string name="preference_geoloc_summary">Utiliser votre position pour déterminer la ville</string>
+    <string name="preference_city">Ville</string>
+    <string name="preference_city_summary">Saisir votre ville</string>
+
+    <string name="preference_general_vocal_recognition">Reconnaissance vocale</string>
+    <string name="preference_general_vocal_recognition_summary">Activer les commandes vocales</string>
+    <string name="preference_general_face_recognition">Détection des visages</string>
+    <string name="preference_general_face_recognition_summary">Active le mirroir seulement en cas de présence</string>
+
+
+    <string name="preference_category_map_trafic">Trafic</string>
+    <string name="preference_category_map_road">Itinéraire</string>
+    <string name="preference_address_start">Départ</string>
+    <string name="preference_address_start_summary">Saisir votre adresse de départ</string>
+    <string name="preference_address_finish">Arrivée</string>
+    <string name="preference_address_finish_summary">Saisir votre adresse d\'arrivée</string>
+
+
+    <string name="activate">Activé</string>
+</resources>

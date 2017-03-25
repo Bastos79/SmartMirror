@@ -1,0 +1,46 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/preference_category_map_trafic"
+        >
+
+        <SwitchPreference
+            android:key="activate_map_preference"
+            android:title="@string/activate"
+            />
+
+        <CheckBoxPreference
+            android:key="geoloc_map_preference"
+            android:dependency="activate_map_preference"
+            android:title="@string/preference_geoloc"
+            android:summary="@string/preference_geoloc_summary" />
+
+        <EditTextPreference
+            android:key="city_map_preference"
+            android:dependency="activate_map_preference"
+            android:title="@string/preference_city"
+            android:summary="@string/preference_city_summary"
+            android:dialogTitle="dialog_title_edittext_preference" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preference_category_map_road"
+        >
+
+        <EditTextPreference
+            android:key="address_start_road_preference"
+            android:title="@string/preference_address_start"
+            android:summary="@string/preference_address_start_summary"
+            android:dialogTitle="dialog_title_edittext_preference" />
+
+        <EditTextPreference
+            android:key="address_finish_road_preference"
+            android:title="@string/preference_address_finish"
+            android:summary="@string/preference_address_start_summary"
+            android:dialogTitle="dialog_title_edittext_preference" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

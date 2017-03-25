@@ -1,0 +1,28 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/header_weather"
+        >
+
+        <SwitchPreference
+            android:key="activate_weather_preference"
+            android:title="@string/activate"
+            />
+
+        <CheckBoxPreference
+            android:key="geoloc_weather_preference"
+            android:dependency="activate_weather_preference"
+            android:title="@string/preference_geoloc"
+            android:summary="@string/preference_geoloc_summary" />
+
+        <EditTextPreference
+            android:key="city_weather_preference"
+            android:dependency="activate_weather_preference"
+            android:title="@string/preference_city"
+            android:summary="@string/preference_city_summary"
+            android:dialogTitle="dialog_title_edittext_preference" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
