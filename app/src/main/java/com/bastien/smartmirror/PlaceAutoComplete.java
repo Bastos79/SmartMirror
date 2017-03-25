@@ -15,9 +15,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.GeoDataApi;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
     private Context mContext;
     private EditTextPreference mCity;
     private ArrayList<String> mPlaces;
+    private AutocompletePredictionBuffer autocompletePredictions;
 
     public PlaceAutoComplete(Context context, EditTextPreference city){
         mContext = context;
@@ -69,6 +74,24 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
 
                                 String[] place = mPlaces.get(which).split(",");
                                 mCity.setSummary(place[0]);
+                                String placeId = autocompletePredictions.get(which).getPlaceId();
+
+                                Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
+                                        .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                                            @Override
+                                            public void onResult(PlaceBuffer places) {
+                                                if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                                                    final Place myPlace = places.get(0);
+
+                                                    Log.i("SmartM", "Place found: " + myPlace.getName() + " Long : " +
+                                                            myPlace.getLatLng().longitude + " Lat : " + myPlace.getLatLng().latitude);
+                                                } else {
+                                                    Log.e("SmartM", "Place not found");
+                                                }
+                                                places.release();
+                                            }
+                                        });
+
                             }
                         });
         builder.create();
@@ -85,7 +108,7 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
         Log.i("SmartM", "Google client background"  + mGoogleApiClient);
         AutocompleteFilter autoCompleteFilter = new AutocompleteFilter.Builder().setTypeFilter(5).build();
         PendingResult<AutocompletePredictionBuffer> result = Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient, params[0], null, autoCompleteFilter);
-        AutocompletePredictionBuffer autocompletePredictions = result.await(60, TimeUnit.SECONDS);
+        autocompletePredictions = result.await(60, TimeUnit.SECONDS);
         final com.google.android.gms.common.api.Status status = autocompletePredictions.getStatus();
         if (!status.isSuccess()) {
             //Toast.makeText(getContext(), "Error contacting API: " + status.toString(),
