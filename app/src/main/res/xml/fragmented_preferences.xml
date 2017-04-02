@@ -37,7 +37,7 @@
              preferences.  If running in a large screen, they can be embedded
              inside of the overall preferences UI. -->
         <PreferenceScreen
-            android:fragment="com.bastien.smartmirror.SettingsMirror$Prefs1FragmentInner"
+            android:fragment="com.bastien.smartmirror.settings.SettingsMirror$Prefs1FragmentInner"
             android:title="title_fragment_preference"
             android:summary="summary_fragment_preference">
             <!-- Arbitrary key/value pairs can be included for fragment arguments -->

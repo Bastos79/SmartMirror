@@ -13,7 +13,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBY55XYkEk2Zo6Y3XvpQUWRaCZTmgqImNI"/>
 
-        <activity android:name=".SettingsMirror">
+        <activity android:name=".settings.SettingsMirror">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

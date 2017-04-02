@@ -1,4 +1,4 @@
-package com.bastien.smartmirror;
+package com.bastien.smartmirror.settings;
 
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -10,6 +10,9 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
 import android.widget.Button;
+
+import com.bastien.smartmirror.PlaceAutoComplete;
+import com.bastien.smartmirror.R;
 
 import java.util.List;
 
@@ -153,4 +156,14 @@ public class SettingsMirror extends PreferenceActivity  {
             });
         }
     }
+
+    public static class TransportFragment extends PreferenceFragment {
+
+    }
+
+    public static class Prefs1Fragment extends PreferenceFragment {
+
+    }
+
+
 }
