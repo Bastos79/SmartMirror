@@ -1,17 +1,19 @@
 package com.bastien.smartmirror.settings;
 
+import android.content.Intent;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
-import com.bastien.smartmirror.PlaceAutoComplete;
+import com.bastien.smartmirror.activityMirror;
+import com.bastien.smartmirror.placeAutoComplete;
 import com.bastien.smartmirror.R;
 
 import java.util.List;
@@ -31,6 +33,13 @@ public class SettingsMirror extends PreferenceActivity  {
             Button button = new Button(this);
             button.setText("Démarrer le mirroir");
             setListFooter(button);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),activityMirror.class);
+                    startActivity(i);
+                }
+            });
         }
     }
 
@@ -106,7 +115,7 @@ public class SettingsMirror extends PreferenceActivity  {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-                    new PlaceAutoComplete(getActivity(), mCity).execute(mCity.getEditText().getText().toString());
+                    new placeAutoComplete(getActivity(), mCity).execute(mCity.getEditText().getText().toString());
 
                     /*
                         new Thread(new Runnable() {

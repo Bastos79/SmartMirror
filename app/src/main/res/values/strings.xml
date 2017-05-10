@@ -34,4 +34,7 @@
 
 
     <string name="activate">Activé</string>
+
+    <string name="dark_sky_api_key">5a4ff1dc4037af52aa63dda7c6198d2a</string>
+
 </resources>

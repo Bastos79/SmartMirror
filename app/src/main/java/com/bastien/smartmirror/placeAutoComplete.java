@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.bastien.smartmirror.dto.weatherDto;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -32,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * Created by bmilcend on 05/07/2016.
  */
 
-public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implements GoogleApiClient.ConnectionCallbacks,
+public class placeAutoComplete extends AsyncTask<String, Integer, String> implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
@@ -40,8 +41,9 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
     private EditTextPreference mCity;
     private ArrayList<String> mPlaces;
     private AutocompletePredictionBuffer autocompletePredictions;
+    public weatherDto weatherDto;
 
-    public PlaceAutoComplete(Context context, EditTextPreference city){
+    public placeAutoComplete(Context context, EditTextPreference city){
         mContext = context;
         mCity = city;
     }
@@ -60,7 +62,8 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
                 .build();
         mGoogleApiClient.connect();
         Log.i("SmartM", "Google client after"  + mGoogleApiClient);
-
+        //Get weather object
+        weatherDto.getInstance();
     }
 
     @Override
@@ -85,6 +88,10 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
 
                                                     Log.i("SmartM", "Place found: " + myPlace.getName() + " Long : " +
                                                             myPlace.getLatLng().longitude + " Lat : " + myPlace.getLatLng().latitude);
+                                                    weatherDto.setCityName(myPlace.getName().toString());
+                                                    weatherDto.setCityLatitude(myPlace.getLatLng().latitude);
+                                                    weatherDto.setCityLongitude(myPlace.getLatLng().longitude);
+
                                                 } else {
                                                     Log.e("SmartM", "Place not found");
                                                 }

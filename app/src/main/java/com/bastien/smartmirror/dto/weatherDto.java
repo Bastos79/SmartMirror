@@ -5,15 +5,28 @@ package com.bastien.smartmirror.dto;
  */
 
 public class weatherDto {
+
     /** City Name*/
-    private String cityName;
+    private String cityName = null;
     /** City Longitude*/
-    private String cityLongitude;
+    private double cityLongitude;
     /** City Latitude*/
-    private String cityLatitude;
+    private double cityLatitude;
 
     /** Constructor */
     public weatherDto() {
+    }
+
+    /** Instance unique non préinitialisée */
+    private static weatherDto mWeatherDto = null;
+
+    /** Point d'accès pour l'instance unique du singleton */
+    public static synchronized weatherDto getInstance()
+    {
+        if (mWeatherDto == null)
+        { 	mWeatherDto = new weatherDto();
+        }
+        return mWeatherDto;
     }
 
     public String getCityName() {
@@ -24,19 +37,19 @@ public class weatherDto {
         this.cityName = cityName;
     }
 
-    public String getCityLongitude() {
+    public double getCityLongitude() {
         return cityLongitude;
     }
 
-    public void setCityLongitude(String cityLongitude) {
+    public void setCityLongitude(double cityLongitude) {
         this.cityLongitude = cityLongitude;
     }
 
-    public String getCityLatitude() {
+    public double getCityLatitude() {
         return cityLatitude;
     }
 
-    public void setCityLatitude(String cityLatitude) {
+    public void setCityLatitude(double cityLatitude) {
         this.cityLatitude = cityLatitude;
     }
 }

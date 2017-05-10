@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBY55XYkEk2Zo6Y3XvpQUWRaCZTmgqImNI"/>
+            android:value="AIzaSyBY55XYkEk2Zo6Y3XvpQUWRaCZTmgqImNI" />
 
         <activity android:name=".settings.SettingsMirror">
             <intent-filter>
@@ -20,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activityMirror"></activity>
     </application>
 
 </manifest>
