@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bastien.smartmirror.activityMirror">
+    android:keepScreenOn="true"
+    android:paddingLeft="@dimen/outside_padding"
+    android:paddingRight="@dimen/outside_padding"
+    tools:context="com.bastien.smartmirror.ActivityMirror">
 
-</android.support.constraint.ConstraintLayout>
+        <!-- Weather -->
+        <TextView
+            android:id="@+id/temperature"
+            style="@style/TemperatureStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="left"
+            tools:text="72°"/>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_alignBottom="@id/temperature"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/temperature"
+            tools:src="@drawable/partly_cloudy_day"/>
+
+        <TextView
+            android:id="@+id/weather_summary"
+            style="@style/WeatherTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/temperature"
+            android:gravity="left"
+            android:maxWidth="380dp"
+            tools:text="Mostly cloudy until tomorrow evening"/>
+
+        <TextView
+            android:id="@+id/precipitation"
+            style="@style/WeatherTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/weather_summary"
+            android:layout_marginTop="@dimen/precipitation_margin"
+            android:drawablePadding="@dimen/icon_margin"
+            tools:text="6%"/>
+            <!--- android:drawableLeft="@drawable/umbrella" -->
+
+</RelativeLayout>

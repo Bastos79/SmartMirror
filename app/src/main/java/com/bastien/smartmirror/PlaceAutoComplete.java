@@ -10,30 +10,26 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
-import com.bastien.smartmirror.dto.weatherDto;
+import com.bastien.smartmirror.dto.WeatherDto;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
-import com.google.android.gms.location.places.GeoDataApi;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by bmilcend on 05/07/2016.
  */
 
-public class placeAutoComplete extends AsyncTask<String, Integer, String> implements GoogleApiClient.ConnectionCallbacks,
+public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
@@ -41,9 +37,9 @@ public class placeAutoComplete extends AsyncTask<String, Integer, String> implem
     private EditTextPreference mCity;
     private ArrayList<String> mPlaces;
     private AutocompletePredictionBuffer autocompletePredictions;
-    public weatherDto weatherDto;
+    public WeatherDto weatherDto;
 
-    public placeAutoComplete(Context context, EditTextPreference city){
+    public PlaceAutoComplete(Context context, EditTextPreference city){
         mContext = context;
         mCity = city;
     }
@@ -63,12 +59,13 @@ public class placeAutoComplete extends AsyncTask<String, Integer, String> implem
         mGoogleApiClient.connect();
         Log.i("SmartM", "Google client after"  + mGoogleApiClient);
         //Get weather object
-        weatherDto.getInstance();
+        weatherDto = weatherDto.getInstance();
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(R.string.preference_city);
         builder = builder.setAdapter(new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, mPlaces),
@@ -77,6 +74,7 @@ public class placeAutoComplete extends AsyncTask<String, Integer, String> implem
 
                                 String[] place = mPlaces.get(which).split(",");
                                 mCity.setSummary(place[0]);
+                                weatherDto.setCityName(place[0]);
                                 String placeId = autocompletePredictions.get(which).getPlaceId();
 
                                 Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
@@ -88,7 +86,8 @@ public class placeAutoComplete extends AsyncTask<String, Integer, String> implem
 
                                                     Log.i("SmartM", "Place found: " + myPlace.getName() + " Long : " +
                                                             myPlace.getLatLng().longitude + " Lat : " + myPlace.getLatLng().latitude);
-                                                    weatherDto.setCityName(myPlace.getName().toString());
+
+
                                                     weatherDto.setCityLatitude(myPlace.getLatLng().latitude);
                                                     weatherDto.setCityLongitude(myPlace.getLatLng().longitude);
 

@@ -4,7 +4,7 @@ package com.bastien.smartmirror.dto;
  * Created by Bastien on 02/04/2017.
  */
 
-public class weatherDto {
+public class WeatherDto {
 
     /** City Name*/
     private String cityName = null;
@@ -14,17 +14,17 @@ public class weatherDto {
     private double cityLatitude;
 
     /** Constructor */
-    public weatherDto() {
+    public WeatherDto() {
     }
 
     /** Instance unique non préinitialisée */
-    private static weatherDto mWeatherDto = null;
+    private static WeatherDto mWeatherDto = null;
 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized weatherDto getInstance()
+    public static synchronized WeatherDto getInstance()
     {
         if (mWeatherDto == null)
-        { 	mWeatherDto = new weatherDto();
+        { 	mWeatherDto = new WeatherDto();
         }
         return mWeatherDto;
     }

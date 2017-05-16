@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activityMirror"></activity>
+        <activity android:name=".ActivityMirror"></activity>
     </application>
 
 </manifest>

@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BaseTextStyle">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
+    <style name="TemperatureStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="WeatherTextStyle" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
 </resources>

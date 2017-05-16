@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.bastien.smartmirror.activityMirror;
-import com.bastien.smartmirror.placeAutoComplete;
+import com.bastien.smartmirror.ActivityMirror;
+import com.bastien.smartmirror.PlaceAutoComplete;
 import com.bastien.smartmirror.R;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class SettingsMirror extends PreferenceActivity  {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(),activityMirror.class);
+                    Intent i = new Intent(getApplicationContext(),ActivityMirror.class);
                     startActivity(i);
                 }
             });
@@ -115,7 +115,7 @@ public class SettingsMirror extends PreferenceActivity  {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-                    new placeAutoComplete(getActivity(), mCity).execute(mCity.getEditText().getText().toString());
+                    new PlaceAutoComplete(getActivity(), mCity).execute(mCity.getEditText().getText().toString());
 
                     /*
                         new Thread(new Runnable() {

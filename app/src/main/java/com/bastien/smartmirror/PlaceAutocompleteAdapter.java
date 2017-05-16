@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by bmilcend on 04/07/2016.
  */
-public class placeAutocompleteAdapter
+public class PlaceAutocompleteAdapter
         extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
     private static final String TAG = "PlcAutocompleteAdapter";
@@ -60,7 +60,7 @@ public class placeAutocompleteAdapter
      *
      * @see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
      */
-    public placeAutocompleteAdapter(Context context, GoogleApiClient googleApiClient,
+    public PlaceAutocompleteAdapter(Context context, GoogleApiClient googleApiClient,
                                     LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
         mGoogleApiClient = googleApiClient;
