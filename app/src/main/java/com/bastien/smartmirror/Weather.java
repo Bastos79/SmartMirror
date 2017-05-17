@@ -119,7 +119,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
      * {@code null} if the location is unknown.
      */
     private String getRequestUrl() {
-            return String.format(Locale.FRANCE, "https://api.darksky.net/forecast/%s/%f,%f",
+            return String.format(Locale.FRANCE, "https://api.darksky.net/forecast/%s/%f,%f?lang=fr&units=auto",
                     context.getString(R.string.dark_sky_api_key),
                     latitude,
                     longitude);
