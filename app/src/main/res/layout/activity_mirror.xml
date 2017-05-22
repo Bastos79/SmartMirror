@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:keepScreenOn="true"
     android:paddingLeft="@dimen/outside_padding"
     android:paddingRight="@dimen/outside_padding"
@@ -18,7 +19,27 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="left"
-            tools:text="72°"/>
+            tools:text="20°"/>
+
+    <TextView
+        android:id="@+id/temperatureMax"
+        style="@style/MinMaxTemperatureStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@id/temperatureMax"
+        android:layout_toRightOf="@id/temperature"
+        android:layout_marginLeft="5dp"
+        tools:text="30°"/>
+    <TextView
+        android:id="@+id/temperatureMin"
+        style="@style/MinMaxTemperatureStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/temperature"
+        android:layout_toRightOf="@id/temperature"
+        android:layout_marginLeft="5dp"
+        tools:text="30°"/>
 
         <ImageView
             android:id="@+id/icon"
@@ -28,7 +49,7 @@
             android:layout_alignBottom="@id/temperature"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/temperature"
+            android:layout_toRightOf="@id/temperatureMax"
             tools:src="@drawable/partly_cloudy_day"/>
 
         <TextView
@@ -43,7 +64,7 @@
             tools:text="Mostly cloudy until tomorrow evening"/>
 
         <TextView
-            android:id="@+id/precipitation"
+            android:id="@+id/wind"
             style="@style/WeatherTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

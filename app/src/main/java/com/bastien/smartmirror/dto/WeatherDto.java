@@ -9,9 +9,9 @@ public class WeatherDto {
     /** City Name*/
     private String cityName = null;
     /** City Longitude*/
-    private double cityLongitude;
+    private String cityLongitude;
     /** City Latitude*/
-    private double cityLatitude;
+    private String cityLatitude;
 
     /** Constructor */
     public WeatherDto() {
@@ -37,19 +37,19 @@ public class WeatherDto {
         this.cityName = cityName;
     }
 
-    public double getCityLongitude() {
+    public String getCityLongitude() {
         return cityLongitude;
     }
 
-    public void setCityLongitude(double cityLongitude) {
+    public void setCityLongitude(String cityLongitude) {
         this.cityLongitude = cityLongitude;
     }
 
-    public double getCityLatitude() {
+    public String getCityLatitude() {
         return cityLatitude;
     }
 
-    public void setCityLatitude(double cityLatitude) {
+    public void setCityLatitude(String cityLatitude) {
         this.cityLatitude = cityLatitude;
     }
 }

@@ -46,12 +46,12 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
     /**
      * The current longitude.
      */
-    private Double longitude;
+    private String longitude;
 
     /**
      * The current latitude.
      */
-    private Double latitude;
+    private String latitude;
 
     /**
      * A {@link Map} from Dark Sky's icon code to the corresponding drawable resource ID.
@@ -99,11 +99,8 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
             JSONObject response = Network.getJson(requestUrl);
             if (response != null) {
                         parseCurrentTemperature(response);
-                        parseCurrentPrecipitationProbability(response);
                         parseDaySummary(response);
-                        parseDayPrecipitationProbability(response);
                         parseCurrentIcon(response);
-                        parseDayIcon(response);
                         return weatherForecastDto;
             } else {
                 return null;
@@ -119,7 +116,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
      * {@code null} if the location is unknown.
      */
     private String getRequestUrl() {
-            return String.format(Locale.FRANCE, "https://api.darksky.net/forecast/%s/%f,%f?lang=fr&units=auto",
+            return String.format(Locale.FRANCE, "https://api.darksky.net/forecast/%s/%s,%s?lang=fr&units=auto",
                     context.getString(R.string.dark_sky_api_key),
                     latitude,
                     longitude);
@@ -135,38 +132,12 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
     }
 
     /**
-     * Reads the current precipitation probability from the API response. API documentation:
-     * https://darksky.net/dev/docs
-     */
-    private void parseCurrentPrecipitationProbability(JSONObject response) throws JSONException {
-        JSONObject currently = response.getJSONObject("currently");
-        weatherForecastDto.setPrecipitationProba(currently.getDouble("precipProbability"));
-    }
-
-    /**
      * Reads the 24-hour forecast summary from the API response. API documentation:
      * https://darksky.net/dev/docs
      */
-    private String parseDaySummary(JSONObject response) throws JSONException {
+    private void parseDaySummary(JSONObject response) throws JSONException {
         JSONObject hourly = response.getJSONObject("hourly");
-        return hourly.getString("summary");
-    }
-
-    /**
-     * Reads the 24-hour forecast precipitation probability from the API response. API documentation:
-     * https://darksky.net/dev/docs
-     */
-    private Double parseDayPrecipitationProbability(JSONObject response) throws JSONException {
-        JSONObject hourly = response.getJSONObject("hourly");
-        JSONArray data = hourly.getJSONArray("data");
-
-        // Calculate the average over the whole day.
-        double sum = 0;
-        for (int i = 0; i < data.length(); i++) {
-            double probability = data.getJSONObject(i).getDouble("precipProbability");
-            sum += probability;
-        }
-        return sum / data.length();
+        weatherForecastDto.setDaySummary(hourly.getString("summary"));
     }
 
     /**
@@ -179,15 +150,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
         weatherForecastDto.setCurrentIcon(iconResources.get(icon));
     }
 
-    /**
-     * Reads the 24-hour forecast weather icon code from the API response. API documentation:
-     * https://darksky.net/dev/docs
-     */
-    private Integer parseDayIcon(JSONObject response) throws JSONException {
-        JSONObject hourly = response.getJSONObject("hourly");
-        String icon = hourly.getString("icon");
-        return iconResources.get(icon);
-    }
+
 
     @Override
     protected String getTag() {

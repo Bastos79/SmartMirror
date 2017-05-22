@@ -8,10 +8,16 @@ public class WeatherForecastDto {
 
     /** Weather Now Temperature*/
     private Double currentTemperature = null;
+    /** Weather Now Temperature*/
+    private Double dayMaxTemperature = null;
+    /** Weather Now Temperature*/
+    private Double dayMinTemperature = null;
     /** Weather Precipitation Probability*/
     private Double precipitationProba = null;
     /** Weather Current Icon*/
     private Integer currentIcon = null;
+    /** Weather Day Summary*/
+    private String daySummary = null;
 
     /** Constructor */
     public WeatherForecastDto() {
@@ -37,6 +43,22 @@ public class WeatherForecastDto {
         this.currentTemperature = currentTemperature;
     }
 
+    public double getdayMinTemperature() {
+        return dayMinTemperature;
+    }
+
+    public void setdayMinTemperature(double dayMinTemperature) {
+        this.dayMinTemperature = dayMinTemperature;
+    }
+
+    public double getdayMaxTemperature() {
+        return dayMaxTemperature;
+    }
+
+    public void setdayMaxTemperature(double dayMaxTemperature) {
+        this.dayMaxTemperature = dayMaxTemperature;
+    }
+
     public double getPrecipitationProba() {
         return precipitationProba;
     }
@@ -51,5 +73,13 @@ public class WeatherForecastDto {
 
     public void setCurrentIcon(Integer currentIcon) {
         this.currentIcon = currentIcon;
+    }
+
+    public String getDaySummary() {
+        return daySummary;
+    }
+
+    public void setDaySummary(String daySummary) {
+        this.daySummary = daySummary;
     }
 }

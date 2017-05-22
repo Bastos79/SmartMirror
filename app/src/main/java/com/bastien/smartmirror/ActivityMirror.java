@@ -18,7 +18,7 @@ public class ActivityMirror extends AppCompatActivity {
 
     private TextView temperatureView;
     private TextView weatherSummaryView;
-    private TextView precipitationView;
+    private TextView windView;
     private ImageView iconView;
 
     private Weather weather;
@@ -38,13 +38,13 @@ public class ActivityMirror extends AppCompatActivity {
                         temperatureView.setText(temperature);
 
                         // Populate the 24-hour forecast summary, but strip any period at the end.
-                        //String summary = util.stripPeriod(data.daySummary);
-                        //weatherSummaryView.setText(summary);
+                        String summary = removeDot(data.getDaySummary());
+                        weatherSummaryView.setText(summary);
 
                         // Populate the precipitation probability as a percentage rounded to a whole number.
-                        String precipitation =
-                                String.format(Locale.FRANCE, "%d%%", Math.round(100 * data.getPrecipitationProba()));
-                        precipitationView.setText(precipitation);
+                        //String precipitation =
+                        //        String.format(Locale.FRANCE, "%d%%", Math.round(100 * data.getPrecipitationProba()));
+                        //windView.setText(precipitation);
 
                         // Populate the icon for the current weather.
                         iconView.setImageResource(data.getCurrentIcon());
@@ -52,14 +52,14 @@ public class ActivityMirror extends AppCompatActivity {
                         // Show all the views.
                         temperatureView.setVisibility(View.VISIBLE);
                         weatherSummaryView.setVisibility(View.VISIBLE);
-                        precipitationView.setVisibility(View.VISIBLE);
+                        windView.setVisibility(View.VISIBLE);
                         iconView.setVisibility(View.VISIBLE);
                     } else {
 
                         // Hide everything if there is no data.
                         temperatureView.setVisibility(View.GONE);
                         weatherSummaryView.setVisibility(View.GONE);
-                        precipitationView.setVisibility(View.GONE);
+                        windView.setVisibility(View.GONE);
                         iconView.setVisibility(View.GONE);
                     }
 
@@ -72,7 +72,7 @@ public class ActivityMirror extends AppCompatActivity {
         setContentView(R.layout.activity_mirror);
                         temperatureView = (TextView) findViewById(R.id.temperature);
                         weatherSummaryView = (TextView) findViewById(R.id.weather_summary);
-                        precipitationView = (TextView) findViewById(R.id.precipitation);
+                        windView = (TextView) findViewById(R.id.wind);
                         iconView = (ImageView) findViewById(R.id.icon);
 
                         weather = new Weather(this, weatherUpdateListener);
@@ -88,5 +88,19 @@ public class ActivityMirror extends AppCompatActivity {
     protected void onStop() {
         weather.stop();
         super.onStop();
+    }
+
+    /**
+     * Removes the period from the end of a sentence, if there is one.
+     */
+    public String removeDot(String sentence) {
+        if (sentence == null) {
+            return null;
+        }
+        if ((sentence.length() > 0) && (sentence.charAt(sentence.length() - 1) == '.')) {
+            return sentence.substring(0, sentence.length() - 1);
+        } else {
+            return sentence;
+        }
     }
 }

@@ -23,6 +23,7 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -88,8 +89,8 @@ public class PlaceAutoComplete extends AsyncTask<String, Integer, String> implem
                                                             myPlace.getLatLng().longitude + " Lat : " + myPlace.getLatLng().latitude);
 
 
-                                                    weatherDto.setCityLatitude(myPlace.getLatLng().latitude);
-                                                    weatherDto.setCityLongitude(myPlace.getLatLng().longitude);
+                                                    weatherDto.setCityLatitude(String.format(Locale.US, "%.2f", myPlace.getLatLng().latitude));
+                                                    weatherDto.setCityLongitude(String.format(Locale.US, "%.2f", myPlace.getLatLng().longitude));
 
                                                 } else {
                                                     Log.e("SmartM", "Place not found");
