@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -128,6 +129,18 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
      */
     private void parseCurrentTemperature(JSONObject response) throws JSONException {
         JSONObject currently = response.getJSONObject("currently");
+        JSONObject daily = response.getJSONObject("daily");
+        JSONArray dailyDatas = daily.getJSONArray("data");
+
+        int dayNumber = dailyDatas.length();
+        for (int i = 2; i < dayNumber; i++)
+        {
+            //weatherForecastDto
+        }
+
+
+
+        weatherForecastDto.setdayMaxTemperature(dailyDatas.get(1));
         weatherForecastDto.setCurrentTemperature(currently.getDouble("temperature"));
     }
 
