@@ -1,5 +1,7 @@
 package com.bastien.smartmirror.dto;
 
+import java.util.ArrayList;
+
 /**
  * Created by Bastien on 02/04/2017.
  */
@@ -14,13 +16,16 @@ public class WeatherForecastDto {
     private Double dayMinTemperature = null;
     /** Weather Precipitation Probability*/
     private Double precipitationProba = null;
-    /** Weather Current Icon*/
-    private Integer currentIcon = null;
+    /** Weather Icon*/
+    private Integer icon = null;
     /** Weather Day Summary*/
     private String daySummary = null;
+    /** Weather week forecast*/
+    private ArrayList<WeatherForecastDto> weatherWeek = new ArrayList<WeatherForecastDto>();
 
     /** Constructor */
     public WeatherForecastDto() {
+
     }
 
     /** Instance unique non préinitialisée */
@@ -67,12 +72,12 @@ public class WeatherForecastDto {
         this.precipitationProba = precipitationProba;
     }
 
-    public Integer getCurrentIcon() {
-        return currentIcon;
+    public Integer getIcon() {
+        return icon;
     }
 
-    public void setCurrentIcon(Integer currentIcon) {
-        this.currentIcon = currentIcon;
+    public void setIcon(Integer currentIcon) {
+        this.icon = icon;
     }
 
     public String getDaySummary() {
@@ -81,5 +86,13 @@ public class WeatherForecastDto {
 
     public void setDaySummary(String daySummary) {
         this.daySummary = daySummary;
+    }
+
+    public ArrayList<WeatherForecastDto> getWeatherweek() {
+        return weatherWeek;
+    }
+
+    public void setWeatherWeek(ArrayList<WeatherForecastDto> weatherWeek) {
+        this.weatherWeek = weatherWeek;
     }
 }

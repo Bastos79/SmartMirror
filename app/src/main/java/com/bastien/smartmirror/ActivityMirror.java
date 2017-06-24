@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.bastien.smartmirror.dto.WeatherDto;
 import com.bastien.smartmirror.dto.WeatherForecastDto;
+import com.google.android.gms.vision.text.Text;
 
 import java.util.Locale;
 
 public class ActivityMirror extends AppCompatActivity {
 
     private TextView temperatureView;
+    private TextView temperatureMaxView;
+    private TextView temperatureMinView;
     private TextView weatherSummaryView;
     private TextView windView;
     private ImageView iconView;
@@ -33,9 +36,19 @@ public class ActivityMirror extends AppCompatActivity {
                     if (data != null) {
 
                         // Populate the current temperature rounded to a whole number.
-                        String temperature = String.format(Locale.FRANCE, "%d°",
+                        String currentTemperature = String.format(Locale.FRANCE, "%d°",
                                 Math.round(data.getCurrentTemperature()));
-                        temperatureView.setText(temperature);
+                        temperatureView.setText(currentTemperature);
+
+                        // Populate the current temperature rounded to a whole number.
+                        String minTemperature = String.format(Locale.FRANCE, "%d°",
+                                Math.round(data.getdayMinTemperature()));
+                        temperatureMinView.setText(minTemperature);
+
+                        // Populate the current temperature rounded to a whole number.
+                        String maxTemperature = String.format(Locale.FRANCE, "%d°",
+                                Math.round(data.getdayMaxTemperature()));
+                        temperatureMaxView.setText(maxTemperature);
 
                         // Populate the 24-hour forecast summary, but strip any period at the end.
                         String summary = removeDot(data.getDaySummary());
@@ -47,10 +60,12 @@ public class ActivityMirror extends AppCompatActivity {
                         //windView.setText(precipitation);
 
                         // Populate the icon for the current weather.
-                        iconView.setImageResource(data.getCurrentIcon());
+                        iconView.setImageResource(data.getIcon());
 
                         // Show all the views.
                         temperatureView.setVisibility(View.VISIBLE);
+                        temperatureMinView.setVisibility(View.VISIBLE);
+                        temperatureMaxView.setVisibility(View.VISIBLE);
                         weatherSummaryView.setVisibility(View.VISIBLE);
                         windView.setVisibility(View.VISIBLE);
                         iconView.setVisibility(View.VISIBLE);
@@ -58,6 +73,8 @@ public class ActivityMirror extends AppCompatActivity {
 
                         // Hide everything if there is no data.
                         temperatureView.setVisibility(View.GONE);
+                        temperatureMinView.setVisibility(View.GONE);
+                        temperatureMaxView.setVisibility(View.GONE);
                         weatherSummaryView.setVisibility(View.GONE);
                         windView.setVisibility(View.GONE);
                         iconView.setVisibility(View.GONE);
@@ -71,6 +88,8 @@ public class ActivityMirror extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mirror);
                         temperatureView = (TextView) findViewById(R.id.temperature);
+                        temperatureMaxView = (TextView) findViewById(R.id.temperatureMax);
+                        temperatureMinView = (TextView) findViewById(R.id.temperatureMin);
                         weatherSummaryView = (TextView) findViewById(R.id.weather_summary);
                         windView = (TextView) findViewById(R.id.wind);
                         iconView = (ImageView) findViewById(R.id.icon);

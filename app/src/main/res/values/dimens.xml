@@ -5,6 +5,10 @@
     <dimen name="outside_padding">25dp</dimen>
     <dimen name="icon_margin">10dp</dimen>
     <dimen name="precipitation_margin">15dp</dimen>
-    <dimen name="medium_text_size">30dp</dimen>
-    <dimen name="large_text_size">100dp</dimen>
+    <!-- PROD values -->
+    <!-- <dimen name="medium_text_size">30dp</dimen>
+    <dimen name="large_text_size">100dp</dimen> -->
+    <!-- DEV values -->
+    <dimen name="medium_text_size">20dp</dimen>
+    <dimen name="large_text_size">40dp</dimen>
 </resources>

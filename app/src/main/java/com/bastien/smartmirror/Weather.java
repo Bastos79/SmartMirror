@@ -14,6 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -99,7 +103,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
         try {
             JSONObject response = Network.getJson(requestUrl);
             if (response != null) {
-                        parseCurrentTemperature(response);
+                        parseWeekForecast(response);
                         parseDaySummary(response);
                         parseCurrentIcon(response);
                         return weatherForecastDto;
@@ -127,20 +131,39 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
      * Reads the current temperature from the API response. API documentation:
      * https://darksky.net/dev/docs
      */
-    private void parseCurrentTemperature(JSONObject response) throws JSONException {
+    private void parseWeekForecast(JSONObject response) throws JSONException {
+        ArrayList<WeatherForecastDto> weekWeather = new ArrayList<WeatherForecastDto>();
+
         JSONObject currently = response.getJSONObject("currently");
         JSONObject daily = response.getJSONObject("daily");
         JSONArray dailyDatas = daily.getJSONArray("data");
 
+
         int dayNumber = dailyDatas.length();
-        for (int i = 2; i < dayNumber; i++)
+        for (int i = 1; i < dayNumber; i++)
         {
-            //weatherForecastDto
+            JSONObject weatherDay = dailyDatas.getJSONObject(i);
+            Calendar cal = new GregorianCalendar();
+
+            WeatherForecastDto tempWeatherForecastDto = new WeatherForecastDto();
+            double maxTemperature = weatherDay.getDouble("temperatureMax");
+            double minTemperature = weatherDay.getDouble("temperatureMin");
+            Long time = weatherDay.getLong("time") * 1000;
+            String icon = weatherDay.getString("icon");
+
+            tempWeatherForecastDto.setdayMaxTemperature(maxTemperature);
+            tempWeatherForecastDto.setdayMinTemperature(minTemperature);
+            cal.setTimeInMillis(time);
+
+            tempWeatherForecastDto.setIcon(iconResources.get(icon));
+            weekWeather.add(tempWeatherForecastDto);
+
         }
 
+        weatherForecastDto.setWeatherWeek(weekWeather);
 
-
-        weatherForecastDto.setdayMaxTemperature(dailyDatas.get(1));
+        weatherForecastDto.setdayMinTemperature(weekWeather.get(0).getdayMinTemperature());
+        weatherForecastDto.setdayMaxTemperature(weekWeather.get(0).getdayMaxTemperature());
         weatherForecastDto.setCurrentTemperature(currently.getDouble("temperature"));
     }
 
