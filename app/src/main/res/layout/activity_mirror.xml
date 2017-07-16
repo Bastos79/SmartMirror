@@ -21,26 +21,6 @@
             android:gravity="left"
             tools:text="20°"/>
 
-    <TextView
-        android:id="@+id/temperatureMax"
-        style="@style/MinMaxTemperatureStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignTop="@id/temperatureMax"
-        android:layout_toRightOf="@id/temperature"
-        android:layout_marginLeft="5dp"
-        tools:text="30°"/>
-    <TextView
-        android:id="@+id/temperatureMin"
-        style="@style/MinMaxTemperatureStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/temperature"
-        android:layout_toRightOf="@id/temperature"
-        android:layout_marginLeft="5dp"
-        tools:text="30°"/>
-
         <ImageView
             android:id="@+id/icon"
             android:layout_width="96dp"
@@ -49,8 +29,16 @@
             android:layout_alignBottom="@id/temperature"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/temperatureMax"
+            android:layout_toRightOf="@id/temperature"
             tools:src="@drawable/partly_cloudy_day"/>
+
+        <ListView
+            android:id="@+id/weatherWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/icon"
+            >
+        </ListView>
 
         <TextView
             android:id="@+id/weather_summary"

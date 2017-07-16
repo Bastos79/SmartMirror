@@ -75,6 +75,20 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
     }};
 
     /**
+     * A {@link Map} from Dark Sky's time to the corresponding day name.
+     */
+    private final Map<Integer, String> dayName = new HashMap<Integer, String>() {{
+        put(0, "Lun");
+        put(1, "Mar");
+        put(2, "Mer");
+        put(3, "Jeu");
+        put(4, "Ven");
+        put(5, "Sam");
+        put(6, "Dim");
+
+    }};
+
+    /**
      * When creating a new {@link DataUpdater}, provide a non-{@code null} {@link UpdateListener} and
      * an update interval in milliseconds.
      *
@@ -154,7 +168,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
             tempWeatherForecastDto.setdayMaxTemperature(maxTemperature);
             tempWeatherForecastDto.setdayMinTemperature(minTemperature);
             cal.setTimeInMillis(time);
-
+            tempWeatherForecastDto.setDay(dayName.get(cal.get(Calendar.DAY_OF_WEEK)));
             tempWeatherForecastDto.setIcon(iconResources.get(icon));
             weekWeather.add(tempWeatherForecastDto);
 
@@ -183,7 +197,7 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
     private void parseCurrentIcon(JSONObject response) throws JSONException {
         JSONObject currently = response.getJSONObject("currently");
         String icon = currently.getString("icon");
-        weatherForecastDto.setCurrentIcon(iconResources.get(icon));
+        weatherForecastDto.setIcon(iconResources.get(icon));
     }
 
 

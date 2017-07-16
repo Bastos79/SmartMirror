@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#000000"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- Day -->
+    <TextView
+        android:id="@+id/hour"
+        style="@style/MinMaxTemperatureStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        tools:text="lun" />
+
+    <!-- min/max Temperature -->
+    <TextView
+        android:id="@+id/hourTemperature"
+        style="@style/MinMaxTemperatureStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="21°/28°"
+        android:layout_below="@+id/iconHour"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageView
+        android:id="@+id/iconHour"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/day"
+        tools:src="@drawable/partly_cloudy_day"
+        />
+
+</RelativeLayout>

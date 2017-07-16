@@ -18,6 +18,8 @@ public class WeatherForecastDto {
     private Double precipitationProba = null;
     /** Weather Icon*/
     private Integer icon = null;
+    /** Weather Day*/
+    private String day = null;
     /** Weather Day Summary*/
     private String daySummary = null;
     /** Weather week forecast*/
@@ -76,7 +78,7 @@ public class WeatherForecastDto {
         return icon;
     }
 
-    public void setIcon(Integer currentIcon) {
+    public void setIcon(Integer icon) {
         this.icon = icon;
     }
 
@@ -94,5 +96,13 @@ public class WeatherForecastDto {
 
     public void setWeatherWeek(ArrayList<WeatherForecastDto> weatherWeek) {
         this.weatherWeek = weatherWeek;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }
