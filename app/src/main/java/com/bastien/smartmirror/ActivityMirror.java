@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +24,8 @@ public class ActivityMirror extends AppCompatActivity {
     private TextView weatherSummaryView;
     private TextView windView;
     private ImageView iconView;
-    private ListView weatherWeekView;
+    private RecyclerView weatherWeekView;
+
 
     private Weather weather;
 
@@ -81,7 +84,12 @@ public class ActivityMirror extends AppCompatActivity {
                         weatherSummaryView = (TextView) findViewById(R.id.weather_summary);
                         windView = (TextView) findViewById(R.id.wind);
                         iconView = (ImageView) findViewById(R.id.icon);
-                        weatherWeekView = (ListView) findViewById(R.id.weatherWeek);
+                        //weatherWeekView = (ListView) findViewById(R.id.weatherWeek);
+                        LinearLayoutManager layoutManager
+                                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+                        weatherWeekView = (RecyclerView) findViewById(R.id.weatherWeek);
+                        weatherWeekView.setLayoutManager(layoutManager);
 
                         weather = new Weather(this, weatherUpdateListener);
     }

@@ -2,6 +2,7 @@ package com.bastien.smartmirror;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.Locale;
  * Created by Bastien on 16/07/2017.
  */
 
-public class WeatherWeekAdapter extends BaseAdapter {
+public class WeatherWeekAdapter extends RecyclerView.Adapter<WeatherWeekAdapter.ViewHolder> {
 
     ArrayList<WeatherForecastDto> myList = new ArrayList<WeatherForecastDto>();
     Context context;
@@ -31,54 +32,38 @@ public class WeatherWeekAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    // retourne le nombre d'objet présent dans notre liste
-    @Override
-    public int getCount() {
-        return myList.size();
-    }
-
-    // retourne un élément de notre liste en fonction de sa position
-    @Override
-    public WeatherForecastDto getItem(int position) {
-        return myList.get(position);
-    }
-
-    // retourne l'id d'un élément de notre liste en fonction de sa position
-    @Override
-    public long getItemId(int position) {
-        return myList.indexOf(getItem(position));
-    }
-
-    // retourne la vue d'un élément de la liste
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        MyViewHolder mViewHolder = null;
-
-        // au premier appel ConvertView est null, on inflate notre layout
-        if (convertView == null) {
-            LayoutInflater mInflater = (LayoutInflater) context
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-            convertView = mInflater.inflate(R.layout.weather_week, parent, false);
-
-            // nous plaçons dans notre MyViewHolder les vues de notre layout
-            mViewHolder = new MyViewHolder();
-            mViewHolder.textViewDay = (TextView) convertView
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView textViewDay, textViewTemperature;
+        public ImageView imageViewIcon;
+        public ViewHolder(View view) {
+            super(view);
+            this.textViewDay = (TextView) view
                     .findViewById(R.id.day);
-            mViewHolder.textViewTemperature = (TextView) convertView
+            this.textViewTemperature = (TextView) view
                     .findViewById(R.id.minMaxTemperature);
-            mViewHolder.imageViewIcon = (ImageView) convertView
+            this.imageViewIcon = (ImageView) view
                     .findViewById(R.id.iconDay);
-
-            // nous attribuons comme tag notre MyViewHolder à convertView
-            convertView.setTag(mViewHolder);
-        } else {
-            // convertView n'est pas null, nous récupérons notre objet MyViewHolder
-            // et évitons ainsi de devoir retrouver les vues à chaque appel de getView
-            mViewHolder = (MyViewHolder) convertView.getTag();
         }
+    }
 
-        // nous récupérons l'item de la liste demandé par getView
+    // Create new views (invoked by the layout manager)
+    @Override
+    public WeatherWeekAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                   int i) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_week, null);
+        WeatherWeekAdapter.ViewHolder viewHolder = new WeatherWeekAdapter.ViewHolder(view);
+        return viewHolder;
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
         WeatherForecastDto weatherForecastDto = (WeatherForecastDto) getItem(position);
 
         String minTemperature = String.format(Locale.FRANCE, "%d°",
@@ -87,18 +72,27 @@ public class WeatherWeekAdapter extends BaseAdapter {
                 Math.round(weatherForecastDto.getdayMaxTemperature()));
 
         // nous pouvons attribuer à nos vues les valeurs de l'élément de la liste
-        mViewHolder.textViewDay.setText(weatherForecastDto.getDay());
-        mViewHolder.textViewTemperature.setText(minTemperature + "/" + maxTemperature);
-        mViewHolder.imageViewIcon.setImageResource(weatherForecastDto.getIcon());
+        holder.textViewDay.setText(weatherForecastDto.getDay());
+        holder.textViewTemperature.setText(minTemperature + "/" + maxTemperature);
+        holder.imageViewIcon.setImageResource(weatherForecastDto.getIcon());
 
-        // nous retournos la vue de l'item demandé
-        return convertView;
     }
 
-    // MyViewHolder va nous permettre de ne pas devoir rechercher
-    // les vues à chaque appel de getView, nous gagnons ainsi en performance
-    private class MyViewHolder {
-        TextView textViewDay, textViewTemperature;
-        ImageView imageViewIcon;
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return myList.size();
+    }
+
+
+    // retourne un élément de notre liste en fonction de sa position
+    public WeatherForecastDto getItem(int position) {
+        return myList.get(position);
+    }
+
+    // retourne l'id d'un élément de notre liste en fonction de sa position
+    @Override
+    public long getItemId(int position) {
+        return myList.indexOf(getItem(position));
     }
 }
