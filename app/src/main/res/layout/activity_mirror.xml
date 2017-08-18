@@ -23,11 +23,9 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:scaleType="fitXY"
-            android:layout_alignBottom="@id/temperature"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/temperature"
             tools:src="@drawable/partly_cloudy_day"/>
@@ -37,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/icon"
+            android:paddingStart="@dimen/weather_margin"
             >
         </android.support.v7.widget.RecyclerView>
-
 
         <TextView
             android:id="@+id/weather_summary"
@@ -47,21 +45,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/temperature"
+            android:layout_below="@id/weatherWeek"
             android:gravity="left"
             android:maxWidth="380dp"
             tools:text="Mostly cloudy until tomorrow evening"/>
 
-        <TextView
-            android:id="@+id/wind"
-            style="@style/WeatherTextStyle"
+        <ListView
+            android:id="@+id/weatherHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_below="@id/weather_summary"
-            android:layout_marginTop="@dimen/precipitation_margin"
-            android:drawablePadding="@dimen/icon_margin"
-            tools:text="6%"/>
-            <!--- android:drawableLeft="@drawable/umbrella" -->
+            android:paddingStart="@dimen/hour_weather_margin"
+        >
+        </ListView>
+
 
 </RelativeLayout>

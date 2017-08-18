@@ -19,7 +19,7 @@ import java.util.Locale;
  * Created by Bastien on 16/07/2017.
  */
 
-public class WeatherDayAdapter extends BaseAdapter {
+public class WeatherHourAdapter extends BaseAdapter {
 
     ArrayList<WeatherForecastDto> myList = new ArrayList<WeatherForecastDto>();
     Context context;
@@ -27,7 +27,7 @@ public class WeatherDayAdapter extends BaseAdapter {
     // on passe le context afin d'obtenir un LayoutInflater pour utiliser notre
     // row_layout.xml
     // on passe les valeurs de notre à l'adapter
-    public WeatherDayAdapter(Context context, ArrayList<WeatherForecastDto> myList) {
+    public WeatherHourAdapter(Context context, ArrayList<WeatherForecastDto> myList) {
         this.myList = myList;
         this.context = context;
     }
@@ -60,16 +60,16 @@ public class WeatherDayAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            convertView = mInflater.inflate(R.layout.weather_week, parent, false);
+            convertView = mInflater.inflate(R.layout.weather_hour, parent, false);
 
             // nous plaçons dans notre MyViewHolder les vues de notre layout
             mViewHolder = new MyViewHolder();
-            mViewHolder.textViewDay = (TextView) convertView
-                    .findViewById(R.id.day);
+            mViewHolder.textViewHour = (TextView) convertView
+                    .findViewById(R.id.hour);
             mViewHolder.textViewTemperature = (TextView) convertView
-                    .findViewById(R.id.minMaxTemperature);
+                    .findViewById(R.id.hourTemperature);
             mViewHolder.imageViewIcon = (ImageView) convertView
-                    .findViewById(R.id.iconDay);
+                    .findViewById(R.id.hourIcon);
 
             // nous attribuons comme tag notre MyViewHolder à convertView
             convertView.setTag(mViewHolder);
@@ -82,14 +82,11 @@ public class WeatherDayAdapter extends BaseAdapter {
         // nous récupérons l'item de la liste demandé par getView
         WeatherForecastDto weatherForecastDto = (WeatherForecastDto) getItem(position);
 
-        String minTemperature = String.format(Locale.FRANCE, "%d°",
-                Math.round(weatherForecastDto.getdayMinTemperature()));
-        String maxTemperature = String.format(Locale.FRANCE, "%d°",
-                Math.round(weatherForecastDto.getdayMaxTemperature()));
-
         // nous pouvons attribuer à nos vues les valeurs de l'élément de la liste
-        mViewHolder.textViewDay.setText(weatherForecastDto.getDay());
-        mViewHolder.textViewTemperature.setText(minTemperature + "/" + maxTemperature);
+        mViewHolder.textViewHour.setText(weatherForecastDto.getHour());
+        StringBuilder temperature = new StringBuilder();
+        temperature.append(weatherForecastDto.getCurrentTemperature());
+        mViewHolder.textViewTemperature.setText(temperature.toString());
         mViewHolder.imageViewIcon.setImageResource(weatherForecastDto.getIcon());
 
         // nous retournos la vue de l'item demandé
@@ -99,7 +96,7 @@ public class WeatherDayAdapter extends BaseAdapter {
     // MyViewHolder va nous permettre de ne pas devoir rechercher
     // les vues à chaque appel de getView, nous gagnons ainsi en performance
     private class MyViewHolder {
-        TextView textViewDay, textViewTemperature;
+        TextView textViewHour, textViewTemperature;
         ImageView imageViewIcon;
     }
 }

@@ -72,19 +72,20 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
         put("sleet", R.drawable.sleet);
         put("snow", R.drawable.snow);
         put("wind", R.drawable.wind);
+        put("dash", R.drawable.dash);
     }};
 
     /**
      * A {@link Map} from Dark Sky's time to the corresponding day name.
      */
     private final Map<Integer, String> dayName = new HashMap<Integer, String>() {{
-        put(0, "Lun");
-        put(1, "Mar");
-        put(2, "Mer");
-        put(3, "Jeu");
-        put(4, "Ven");
-        put(5, "Sam");
-        put(6, "Dim");
+        put(2, "Lun");
+        put(3, "Mar");
+        put(4, "Mer");
+        put(5, "Jeu");
+        put(6, "Ven");
+        put(7, "Sam");
+        put(1, "Dim");
 
     }};
 
@@ -147,10 +148,13 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
      */
     private void parseWeekForecast(JSONObject response) throws JSONException {
         ArrayList<WeatherForecastDto> weekWeather = new ArrayList<WeatherForecastDto>();
+        ArrayList<WeatherForecastDto> hourWeather = new ArrayList<WeatherForecastDto>();
 
         JSONObject currently = response.getJSONObject("currently");
         JSONObject daily = response.getJSONObject("daily");
         JSONArray dailyDatas = daily.getJSONArray("data");
+        JSONObject hourly = response.getJSONObject("hourly");
+        JSONArray hourlyDatas = hourly.getJSONArray("data");
 
 
         int dayNumber = dailyDatas.length();
@@ -171,10 +175,36 @@ public class Weather extends DataUpdater<WeatherForecastDto>{
             tempWeatherForecastDto.setDay(dayName.get(cal.get(Calendar.DAY_OF_WEEK)));
             tempWeatherForecastDto.setIcon(iconResources.get(icon));
             weekWeather.add(tempWeatherForecastDto);
+        }
 
+        String previousIcon = "";
+        for (int i = 0; i < 12; i++)
+        {
+            JSONObject weatherHour = hourlyDatas.getJSONObject(i);
+            Calendar cal = new GregorianCalendar();
+
+            WeatherForecastDto tempWeatherForecastDto = new WeatherForecastDto();
+            double temperature = weatherHour.getDouble("temperature");
+            Long time = weatherHour.getLong("time") * 1000;
+            String icon = weatherHour.getString("icon");
+            if(previousIcon.equals(icon))
+            {
+                icon = "dash";
+            }
+            previousIcon = icon;
+
+            tempWeatherForecastDto.setCurrentTemperature(temperature);
+            cal.setTimeInMillis(time);
+            StringBuilder hourTime = new StringBuilder();
+            hourTime.append(cal.get(Calendar.HOUR_OF_DAY));
+            hourTime.append("h");
+            tempWeatherForecastDto.setHour(hourTime.toString());
+            tempWeatherForecastDto.setIcon(iconResources.get(icon));
+            hourWeather.add(tempWeatherForecastDto);
         }
 
         weatherForecastDto.setWeatherWeek(weekWeather);
+        weatherForecastDto.setWeatherHour(hourWeather);
 
         weatherForecastDto.setdayMinTemperature(weekWeather.get(0).getdayMinTemperature());
         weatherForecastDto.setdayMaxTemperature(weekWeather.get(0).getdayMaxTemperature());

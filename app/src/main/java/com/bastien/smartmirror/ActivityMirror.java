@@ -22,9 +22,9 @@ public class ActivityMirror extends AppCompatActivity {
 
     private TextView temperatureView;
     private TextView weatherSummaryView;
-    private TextView windView;
     private ImageView iconView;
     private RecyclerView weatherWeekView;
+    private ListView weatherHourView;
 
 
     private Weather weather;
@@ -58,20 +58,22 @@ public class ActivityMirror extends AppCompatActivity {
                         // Show all the views.
                         temperatureView.setVisibility(View.VISIBLE);
                         weatherSummaryView.setVisibility(View.VISIBLE);
-                        windView.setVisibility(View.VISIBLE);
                         iconView.setVisibility(View.VISIBLE);
                     } else {
 
                         // Hide everything if there is no data.
                         temperatureView.setVisibility(View.GONE);
                         weatherSummaryView.setVisibility(View.GONE);
-                        windView.setVisibility(View.GONE);
                         iconView.setVisibility(View.GONE);
                     }
 
                     //Show the weather week
-                    WeatherWeekAdapter adapter = new WeatherWeekAdapter(getApplicationContext(), data.getWeatherweek());
-                    weatherWeekView.setAdapter(adapter);
+                    WeatherWeekAdapter adapterWeek = new WeatherWeekAdapter(getApplicationContext(), data.getWeatherWeek());
+                    weatherWeekView.setAdapter(adapterWeek);
+
+                    //Show the weather hour
+                    WeatherHourAdapter adapterHour = new WeatherHourAdapter(getApplicationContext(), data.getWeatherHour());
+                    weatherHourView.setAdapter(adapterHour);
 
                 }
             };
@@ -82,15 +84,14 @@ public class ActivityMirror extends AppCompatActivity {
         setContentView(R.layout.activity_mirror);
                         temperatureView = (TextView) findViewById(R.id.temperature);
                         weatherSummaryView = (TextView) findViewById(R.id.weather_summary);
-                        windView = (TextView) findViewById(R.id.wind);
                         iconView = (ImageView) findViewById(R.id.icon);
-                        //weatherWeekView = (ListView) findViewById(R.id.weatherWeek);
                         LinearLayoutManager layoutManager
                                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
                         weatherWeekView = (RecyclerView) findViewById(R.id.weatherWeek);
                         weatherWeekView.setLayoutManager(layoutManager);
 
+                        weatherHourView = (ListView) findViewById(R.id.weatherHour);
                         weather = new Weather(this, weatherUpdateListener);
     }
 

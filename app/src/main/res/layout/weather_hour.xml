@@ -6,14 +6,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!-- Day -->
+    <!-- Hour -->
     <TextView
         android:id="@+id/hour"
         style="@style/MinMaxTemperatureStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:text="lun" />
+        android:layout_centerVertical="true"
+        tools:text="10h" />
 
     <!-- min/max Temperature -->
     <TextView
@@ -21,17 +21,20 @@
         style="@style/MinMaxTemperatureStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="21°/28°"
-        android:layout_below="@+id/iconHour"
-        android:layout_centerHorizontal="true"
+        tools:text="21°"
+        android:layout_toRightOf="@+id/hourIcon"
+        android:layout_marginLeft="@dimen/hour_weather_margin"
+        android:layout_centerVertical="true"
         />
 
     <ImageView
-        android:id="@+id/iconHour"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:id="@+id/hourIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:scaleType="fitXY"
-        android:layout_below="@+id/day"
+        android:layout_toRightOf="@+id/hour"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/hour_icon_weather_margin"
         tools:src="@drawable/partly_cloudy_day"
         />
 

@@ -20,10 +20,14 @@ public class WeatherForecastDto {
     private Integer icon = null;
     /** Weather Day*/
     private String day = null;
+    /** Weather Hour*/
+    private String hour = null;
     /** Weather Day Summary*/
     private String daySummary = null;
     /** Weather week forecast*/
     private ArrayList<WeatherForecastDto> weatherWeek = new ArrayList<WeatherForecastDto>();
+    /** Weather week forecast*/
+    private ArrayList<WeatherForecastDto> weatherHour = new ArrayList<WeatherForecastDto>();
 
     /** Constructor */
     public WeatherForecastDto() {
@@ -90,12 +94,20 @@ public class WeatherForecastDto {
         this.daySummary = daySummary;
     }
 
-    public ArrayList<WeatherForecastDto> getWeatherweek() {
+    public ArrayList<WeatherForecastDto> getWeatherWeek() {
         return weatherWeek;
     }
 
     public void setWeatherWeek(ArrayList<WeatherForecastDto> weatherWeek) {
         this.weatherWeek = weatherWeek;
+    }
+
+    public ArrayList<WeatherForecastDto> getWeatherHour() {
+        return weatherHour;
+    }
+
+    public void setWeatherHour(ArrayList<WeatherForecastDto> weatherHour) {
+        this.weatherHour = weatherHour;
     }
 
     public String getDay() {
@@ -104,5 +116,13 @@ public class WeatherForecastDto {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 }

@@ -22,14 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="21°/28°"
+        android:layout_marginLeft="@dimen/weather_margin"
         android:layout_below="@+id/iconDay"
         android:layout_centerHorizontal="true"
         />
 
     <ImageView
         android:id="@+id/iconDay"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="fitXY"
         android:layout_below="@+id/day"
         tools:src="@drawable/partly_cloudy_day"
